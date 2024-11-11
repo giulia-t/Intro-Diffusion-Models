@@ -8,4 +8,4 @@ Alma Mater Studiorum, Università di Bologna  SCUOLA DI SCIENZE, Corso di Laurea
 In questa repository introduciamo i modelli di diffusione e come questi possano essere utilizzati nella libreria Diffusers di Hugging Face. Verranno discussi i concetti base, le applicazioni principali e sarà proposta una semplice demo per aiutare il lettore a comprendere meglio il funzionamento di questi modelli.
 E' possibile trovare tutto all'interno del file DemoDiffusers.ipynb
 
-![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
+![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)(https://colab.research.google.com/github/giulia-t/Intro-Diffusion-Models/main/DemoDiffusers.ipynb)
