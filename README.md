@@ -10,5 +10,5 @@ E' possibile trovare tutto all'interno del file DemoDiffusers.ipynb
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/giulia-t/Intro-Diffusion-Models/blob/main/DemoDiffusers.ipynb)
 
-Di seguito è possibile trovare anche un link ad un tutorial di addestramento di un modello diffusivo della libreria Diffusers Huggungface: 
+Di seguito è possibile trovare anche un link ad un tutorial di addestramento di un modello diffusivo della libreria Diffusers Huggingface: 
 https://huggingface.co/docs/diffusers/v0.18.0/en/tutorials/basic_training 
