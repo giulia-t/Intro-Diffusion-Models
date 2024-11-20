@@ -1,0 +1,69 @@
+GUIDA ALLE GPU DI DIPARTIMENTO :
+Autore: Giulia Torsani
+
+In questo documento verrà fornita una guida passo-passo per poter accedere, configurare e utilizzare correttamente le GPU di dipartimento.
+
+E' possibile trovare informazioni sulle macchine e le relative istruzioni operative al seguente link: 
+https://disi.unibo.it/it/dipartimento/servizi-tecnici-e-amministrativi/servizi-informatici/utilizzo-cluster-hpc
+
+
+
+1-Richiedere l'accesso
+Per prima cosa bisogna richiedere l'accesso alle macchine scrivendo ai tecnici alla seguente mail: tecnici@cs.unibo.it
+
+2-Accedere alle macchine
+Una volta ottenuto l'accesso, sarà possibile collegarsi alla GPU remota (giano) da terminale tramite credenziali istituzionali digitando:
+ssh nome.cognome@studio.unibo.it@giano.cs.unibo.it
+ed inserendo la propria password istituzionale
+
+3-Creazione dell'ambiente di lavoro
+Una volta entrati dovremo scegliere una directory di lavoro dove creare la nostra cartella personale da configurare. 
+Attualmente la directory consigliata è scratch.hpc, poichè non presenta limiti di memoria (consultare comunque le istruzioni operative in caso di cambiamenti).
+
+entriamo quindi nella cartella : cd /scratch.hpc/ 
+e creiamo la nostra directory personale dove configurare il nostro ambiente : mkdir /scratch.hpc/nome.cognome
+
+una volta entrati nella nostra cartella potremo copiare i nostri file di script tramite il comando scp (o scp -r in caso di cartelle) specificando il percorso
+dei file per trasportarli dal nostro pc locale su giano.
+
+Per creare l'ambiente virtuale dovremo lanciare all'interno della nostra cartella di lavoro:
+python3 -m venv myenv
+
+e attivare l'ambiente con il comando:
+source myenv/bin/activate
+
+A questo punto possiamo installare tutte le librerie a noi necessarie(consultare i relativi siti), ad esempio la libreria pytorch si installa con il seguente comando:
+pip3 install torch torchvision torchaudio --
+index-url https://download.pytorch.org/whl/cu118
+
+Ora dobbiamo configurare il file.sbatch nella stessa directory di lavoro contenente i nostri script, di seguito riportiamo un breve esempio:
+---------------------------
+#!/bin/bash
+#SBATCH --job-name=training_job
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=nome.cognome@studio.unibo.it	%aggiornamenti sul job verranno mandati su email istituzionale indicata
+#SBATCH --time=24:00:00								%tempo stimato per il job, una volta scaduto il job viene interrotto automaticamente
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --output=training_output.log				%file di output del nostro script
+#SBATCH --gres=gpu:1								%questo è il numero di gpu che puoi usare, solo 1 e non può essere aumentato
+#SBATCH --partition=l40								%partizione della gpu che scegliamo di utilizzare
+python3 script.py				 					%script che vuoi far andare
+------------------------------
+
+Una volta configurato siamo pronti per lanciare il nostro script:
+sbatch training.sbatch
+
+e verrà stampato in output l'ID del job in questione
+
+-4 Alcuni comandi utili:
+
+nano file.sbatch 	%per modificare il file
+
+sbatch file.sbatch 	%per far andare lo script indicato nel file
+
+tail -f nome_output 	%per vedere in tempo reale l'output dello script, ci mette un po' ad aggiornare
+
+squeue 			%per avere una paroramica di tutti i job sia tuoi che degli altri, inoltre per vedere il job ID
+
+scancel tuo_job_ID	%per terminare un tuo job manualmente, utile nel caso ti accorga che lo script è sbagliato o ci sta mettendo troppo per i tuoi gusti
