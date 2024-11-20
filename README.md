@@ -12,3 +12,5 @@ E' possibile trovare tutto all'interno del file DemoDiffusers.ipynb
 
 Di seguito è possibile trovare anche un link ad un tutorial di addestramento di un modello diffusivo della libreria Diffusers Huggingface: 
 https://huggingface.co/docs/diffusers/v0.18.0/en/tutorials/basic_training 
+
+Nella repository è possibile trovare anche il file Guida_a_giano, nel quale è presente una guida passo-passo per poter accedere e configurare le GPU di dipartimento. 
